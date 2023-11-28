@@ -19,6 +19,10 @@ public class Restaurante {
 
 
     //Outros métodos
+    public void cadastrarItem(Item item) {
+        cardapio.add(new Item(item));
+    }
+
     public void cadastrarIngrediente(String ingrediente) {
         ingregientes.add(ingrediente);
     }
