@@ -11,6 +11,13 @@ public class Item {
         this.precoCusto = precoCusto;
     }
 
+    public Item (Item item) {
+        this.nome = item.getNome();
+        this.codigo = item.getCodigo();
+        this.precoUnitario = item.getPrecoUnitario();
+        this.precoCusto = item.getPrecoCusto();
+    }
+
     public String getNome() {
         return nome;
     }
