@@ -7,8 +7,20 @@ public class Item {
     public Item(String nome, String codigo, double precoUnitario, double precoCusto) {
         this.nome = nome;
         this.codigo = codigo;
-        this.precoUnitario = precoUnitario;
-        this.precoCusto = precoCusto;
+
+        if (precoCusto < 0) {
+            this.precoCusto = 0;
+        }
+        else {
+            this.precoCusto = precoCusto;
+        }
+
+        if (precoUnitario < this.precoCusto) {
+            this.precoUnitario = this.precoCusto;
+        }
+        else {
+            this.precoUnitario = precoUnitario;
+        }        
     }
 
     public Item (Item item) {
