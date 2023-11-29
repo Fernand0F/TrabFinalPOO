@@ -48,11 +48,11 @@ public abstract class Prato extends Item {
         this.tempoPreparo = tempoPreparo;
     }
 
-    public static double getValorPagoCozinheiro() {
+    public double getValorPagoCozinheiro() {
         return valorPagoCozinheiro;
     }
 
-    public static void setValorPagoCozinheiro(double valorPagoCozinheiro) {
+    public void setValorPagoCozinheiro(double valorPagoCozinheiro) {
         Prato.valorPagoCozinheiro = valorPagoCozinheiro;
     }
 

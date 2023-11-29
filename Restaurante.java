@@ -98,15 +98,18 @@ public class Restaurante {
         for (int i = 0; i < cardapio.size(); i++) {
             System.out.println("Nome: " + cardapio.get(i).getNome());
             System.out.println("Código: " + cardapio.get(i).getCodigo());
-            System.out.println("Preço: " + cardapio.get(i).getPrecoUnitario() + " R$");
+            System.out.println("Preço unitário: " + cardapio.get(i).getPrecoUnitario() + " R$");
+            System.out.println("Preço de custo: " + cardapio.get(i).getPrecoCusto() + " R$");
 
             if (cardapio.get(i) instanceof Bebida) {
-                System.out.println("tamanho: " + ((Bebida) cardapio.get(i)).getTamanhoEmbalagem() + " ml");
+                System.out.println("Tamanho: " + ((Bebida) cardapio.get(i)).getTamanhoEmbalagem() + " ml");
+                System.out.println("Tipo de embalagem: " + ((Bebida) cardapio.get(i)).getTipoEmbalagem());
             } else if (cardapio.get(i) instanceof Prato) {
                 System.out.println("Descrição: " + ((Prato) cardapio.get(i)).getDescricaoPrato());
                 System.out.println("Ingredientes: " + ((Prato) cardapio.get(i)).getListaIngredientes());
                 System.out.println("Tempo de preparo: " + ((Prato) cardapio.get(i)).getTempoPreparo() + " min");
-                
+                System.out.println("Valor pago ao Cozinheiro: " + ((Prato) cardapio.get(i)).getValorPagoCozinheiro() + " R$");
+
                 if (cardapio.get(i) instanceof Sobremesa) {
                     System.out.println("Calorias: " + ((Sobremesa) cardapio.get(i)).getNumeroCalorias() + " kcal");
                 }

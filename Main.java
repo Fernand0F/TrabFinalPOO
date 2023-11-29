@@ -25,6 +25,7 @@ public class Main
 				case 0:
 					break;
 				case 1:
+				Menu.menuCardapio(restaurante);
 					break;
 				case 2:
 					Menu.menuFuncionarios(restaurante);

@@ -1,9 +1,11 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import ClassesAuxiliares.Data;
 import ClassesFuncionario.Cozinheiro;
 import ClassesFuncionario.Garcom;
+import ClassesItem.PratoPrincipal;
 
 public class Menu {
     public static int menu(String[] itens) {
@@ -30,7 +32,106 @@ public class Menu {
 
     //A fazer
     public static void menuCardapio(Restaurante restaurante) {
+        String[] itensMenuCardapio = new String[3]; //Itens do menu
+        itensMenuCardapio[0] = new String("Ver Itens cadastrados");
+        itensMenuCardapio[1] = new String("Cadastrar Item");
+        itensMenuCardapio[2] = new String("Voltar");
 
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+
+            Main.limparTermial();
+            System.out.format("========================== Cardápio =========================");
+            int input01 = Menu.menu(itensMenuCardapio);
+
+            if (input01 == 2) break; //sair do loop
+
+            switch (input01) {
+                case 0:
+                    System.out.println();
+                    if (restaurante.getCardapio().size() == 0) {
+                        System.out.println("Nenhum item cadastrado");
+                    } else {
+                        restaurante.mostrarCardapio();
+                    }
+
+                    scanner.nextLine();
+                    break;
+
+                case 1:
+                    cadastrarItem(restaurante);
+                    break;
+            }
+        }
+    }
+
+    public static void cadastrarItem(Restaurante restaurante) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] itensMenuCadastroItem = new String[4]; //Itens do menu
+        itensMenuCadastroItem[0] = new String("Cadastrar Prato Principal");
+        itensMenuCadastroItem[1] = new String("Cadastrar Sobremesa");
+        itensMenuCadastroItem[2] = new String("Cadastrar bebida");
+        itensMenuCadastroItem[3] = new String("Voltar");
+
+
+        while (true) {
+            Main.limparTermial();
+            System.out.format("======================= Cadastrar Item ======================");
+            int input01 = Menu.menu(itensMenuCadastroItem);
+
+            if (input01 == 3) break;
+
+            switch (input01) {
+                case 0:
+                    System.out.format("Nome do prato: ");
+                    String nome = scanner.nextLine();
+                    System.out.format("Código do prato [AA000]: ");
+                    String codigo = scanner.nextLine();
+                    System.out.format("Decrição do prato: ");
+                    String descricao = scanner.nextLine();
+                    System.out.format("Preço unitário: ");
+                    double precoUnitario = scanner.nextDouble();
+                    System.out.format("Preço de custo: ");
+                    double precoCusto = scanner.nextDouble();
+                    System.out.format("Tempo de preparo: ");
+                    double tempoDePreparo = scanner.nextDouble();
+
+                    ArrayList<String> listaIngredientes = new ArrayList<String>();
+                    ArrayList<String> intensMenuIng = new ArrayList<String>(restaurante.getIngredientes());
+                    intensMenuIng.add("Continuar");
+
+                    while (true) {
+                        Main.limparTermial();
+                    
+                        System.out.format("================== Ingredientes Adicionados =================\n");
+                        for (int i = 0; i < listaIngredientes.size(); i++) {
+                            System.out.println(" - " + listaIngredientes.get(i));
+                        }
+                        System.out.format("\n==================== Adiconar Ingrdientes ===================");
+                        
+
+                        int input02 = Menu.menu(intensMenuIng.toArray(new String[0]));
+
+                        if (input02 == intensMenuIng.size()-1) break;
+                        else {
+                            listaIngredientes.add(intensMenuIng.get(input02));
+                        }
+                    }
+
+                    PratoPrincipal prato = new PratoPrincipal(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricao, tempoDePreparo);
+                    restaurante.cadastrarItem(prato);
+                    break;
+
+                case 1:
+                    
+                    break;
+
+                case 2:
+                    
+                    break;
+            }
+        }
     }
 
     //Incompleto
