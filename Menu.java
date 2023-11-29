@@ -65,7 +65,7 @@ public class Menu {
         }
     }
 
-    public static void cadastrarItem(Restaurante restaurante) {
+    private static void cadastrarItem(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
         String[] itensMenuCadastroItem = new String[4]; //Itens do menu
@@ -108,7 +108,7 @@ public class Menu {
                         for (int i = 0; i < listaIngredientes.size(); i++) {
                             System.out.println(" - " + listaIngredientes.get(i));
                         }
-                        System.out.format("\n==================== Adiconar Ingrdientes ===================");
+                        System.out.format("\n=================== Adicionar Ingredientes ==================");
                         
 
                         int input02 = Menu.menu(intensMenuIng.toArray(new String[0]));
@@ -121,6 +121,8 @@ public class Menu {
 
                     PratoPrincipal prato = new PratoPrincipal(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricao, tempoDePreparo);
                     restaurante.cadastrarItem(prato);
+                    System.out.println("Prato cadastrado");
+                    scanner.nextLine();
                     break;
 
                 case 1:
@@ -249,7 +251,7 @@ public class Menu {
         }
     }
 
-    public static void menuIngredientes(Restaurante restaurante) {
+    private static void menuIngredientes(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
         String[] itensMenuIngredintes = new String[3]; //Itens do menu
@@ -280,12 +282,14 @@ public class Menu {
                     System.out.format("\nDigite o nome do ingrediente a ser cadastrado: ");
                     String nomeIngrediente = scanner.nextLine();
                     restaurante.cadastrarIngrediente(nomeIngrediente);
+                    System.out.println("Ingrediente cadastrado");
+                    scanner.nextLine();
                     break;
             }
         }
     }
 
-    public static void menuEmbalagens(Restaurante restaurante) {
+    private static void menuEmbalagens(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
         String[] itensMenuEmbalagens = new String[3]; //Itens do menu
@@ -317,12 +321,14 @@ public class Menu {
                     System.out.format("\nDigite o nome da embalagem a ser cadastrada: ");
                     String nomeEmbalagem = scanner.nextLine();
                     restaurante.cadastrarEmbalagem(nomeEmbalagem);
+                    System.out.println("Embalagem cadastrada");
+                    scanner.nextLine();
                     break;
             }
         }
     }
 
-    public static void menuFormasDePagamento(Restaurante restaurante) {
+    private static void menuFormasDePagamento(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
         String[] itensMenuPagmento = new String[3]; //Itens do menu
@@ -355,6 +361,8 @@ public class Menu {
                     System.out.format("\nDigite o nome da Forma de Pagamento a ser cadastrada: ");
                     String nomeForma = scanner.nextLine();
                     restaurante.cadastrarFormaDePagamento(nomeForma);
+                    System.out.println("Forama de pagamento cadastrada");
+                    scanner.nextLine();
                     break;
             }
         }
