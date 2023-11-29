@@ -25,13 +25,13 @@ public class Menu {
 
     public static void menuFuncionarios(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
-        
-        while (true) {
-            String[] itensMenuFuncionarios = new String[3]; //Itens do menu
-            itensMenuFuncionarios[0] = new String("Ver Funcionários Cadastrados");
-            itensMenuFuncionarios[1] = new String("Cadastrar Funcionário");
-            itensMenuFuncionarios[2] = new String("Voltar");
 
+        String[] itensMenuFuncionarios = new String[3]; //Itens do menu
+        itensMenuFuncionarios[0] = new String("Ver Funcionários Cadastrados");
+        itensMenuFuncionarios[1] = new String("Cadastrar Funcionário");
+        itensMenuFuncionarios[2] = new String("Voltar");
+
+        while (true) {
             Main.limparTermial();
             System.out.format("======================== Funcionário ========================");
             int input01 = Menu.menu(itensMenuFuncionarios);
@@ -107,15 +107,45 @@ public class Menu {
         }
     }
 
+    public static void menuRecursos(Restaurante restaurante) {
+        String[] itensMenuRecursos = new String[4];
+        itensMenuRecursos[0] = new String("Ingredientes");
+        itensMenuRecursos[1] = new String("Embalagens");
+        itensMenuRecursos[2] = new String("Formas de Pagamento");
+        itensMenuRecursos[3] = new String("Voltar");
+
+        while (true) {
+            Main.limparTermial();
+            System.out.format("========================= Recursos ==========================");
+            int input01 = Menu.menu(itensMenuRecursos);
+
+            if (input01 == 3) break;
+
+            switch (input01) {
+                case 0:
+                    menuIngredientes(restaurante);
+                    break;
+            
+                case 1:
+                    menuEmbalagens(restaurante);
+                    break;
+                
+                case 2:
+                    menuFormasDePagamento(restaurante);
+                    break;
+            }
+        }
+    }
+
     public static void menuIngredientes(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            String[] itensMenuIngredintes = new String[3]; //Itens do menu
-            itensMenuIngredintes[0] = new String("Ver Ingredientes Cadastrados");
-            itensMenuIngredintes[1] = new String("Cadastrar Ingrediente");
-            itensMenuIngredintes[2] = new String("Voltar");
+        String[] itensMenuIngredintes = new String[3]; //Itens do menu
+        itensMenuIngredintes[0] = new String("Ver Ingredientes Cadastrados");
+        itensMenuIngredintes[1] = new String("Cadastrar Ingrediente");
+        itensMenuIngredintes[2] = new String("Voltar");
 
+        while (true) {
             Main.limparTermial();
             System.out.format("======================= Ingredientes ========================");
             int input01 = Menu.menu(itensMenuIngredintes);
@@ -146,12 +176,13 @@ public class Menu {
     public static void menuEmbalagens(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            String[] itensMenuEmbalagens = new String[3]; //Itens do menu
-            itensMenuEmbalagens[0] = new String("Ver Embalagens Cadastradas");
-            itensMenuEmbalagens[1] = new String("Cadastrar Embalagem");
-            itensMenuEmbalagens[2] = new String("Voltar");
+        String[] itensMenuEmbalagens = new String[3]; //Itens do menu
+        itensMenuEmbalagens[0] = new String("Ver Embalagens Cadastradas");
+        itensMenuEmbalagens[1] = new String("Cadastrar Embalagem");
+        itensMenuEmbalagens[2] = new String("Voltar");
 
+        while (true) {
+            
             Main.limparTermial();
             System.out.format("======================== Embalagens =========================");
             int input01 = Menu.menu(itensMenuEmbalagens);
@@ -182,11 +213,13 @@ public class Menu {
     public static void menuFormasDePagamento(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
+        String[] itensMenuPagmento = new String[3]; //Itens do menu
+        itensMenuPagmento[0] = new String("Ver Formas de Pagamento Cadastradas");
+        itensMenuPagmento[1] = new String("Cadastrar Forma de Pagamento");
+        itensMenuPagmento[2] = new String("Voltar");
+
         while (true) {
-            String[] itensMenuPagmento = new String[3]; //Itens do menu
-            itensMenuPagmento[0] = new String("Ver Formas de Pagamento Cadastradas");
-            itensMenuPagmento[1] = new String("Cadastrar Forma de Pagamento");
-            itensMenuPagmento[2] = new String("Voltar");
+            
 
             Main.limparTermial();
             System.out.format("========================= Pagamento =========================");
