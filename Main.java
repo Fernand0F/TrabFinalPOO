@@ -23,9 +23,10 @@ public class Main
 
 			switch (input) { 
 				case 0:
+					Menu.menuPedidos(restaurante);
 					break;
 				case 1:
-				Menu.menuCardapio(restaurante);
+					Menu.menuCardapio(restaurante);
 					break;
 				case 2:
 					Menu.menuFuncionarios(restaurante);

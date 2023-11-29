@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import ClassesAuxiliares.Data;
+import ClassesFuncionario.Funcionario;
 import ClassesFuncionario.Cozinheiro;
 import ClassesFuncionario.Garcom;
 import ClassesItem.PratoPrincipal;
@@ -27,7 +28,11 @@ public class Menu {
 
     //A fazer
     public static void menuPedidos(Restaurante restaurante) {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Não tem nada");
+
+        scanner.nextLine();
     }
 
     //A fazer
@@ -165,59 +170,76 @@ public class Menu {
                     break;
 
                 case 1:
-                    String[] menuTipoFuncionario = new String[2];
-                    menuTipoFuncionario[0] = new String("Cozinheiro");
-                    menuTipoFuncionario[1] = new String("Garçom");
-
-                    System.out.format("\nCadastrar:");
-                    System.out.format("\n=============================================================");	
-                    int input02 = Menu.menu(menuTipoFuncionario);
-
-                    System.out.format("=============================================================");
-                    System.out.format("\nNome: ");
-                    String nome = scanner.nextLine();
-                    System.out.format("CPF: ");
-                    String cpf = scanner.nextLine();
-                    System.out.format("RG: ");
-                    String rg = scanner.nextLine();
-                    System.out.format("Estado Civil: ");
-                    String ec = scanner.nextLine();
-                    System.out.format("Endereço: ");
-                    String end = scanner.nextLine();
-                    System.out.format("Carteira de Trabalho: ");
-                    String ct = scanner.nextLine();
-                    
-                    System.out.format("Data de Adimissão: ");
-                    System.out.format("\n - Dia: ");
-                    int dia = scanner.nextInt();
-                    System.out.format(" - Mes: ");
-                    int mes = scanner.nextInt();
-                    System.out.format(" - Ano: ");
-                    int ano = scanner.nextInt();
-
-                    if (input02 == 0) { //Cozinheiro
-                        restaurante.cadastrarFuncionario(new Cozinheiro(nome, cpf, rg, ec, end, ct, new Data(dia,mes,ano)));
-                    } else if (input02 == 1) { //garçom
-                        System.out.format("Salário Base: ");
-                        double sb = scanner.nextFloat();
-
-                        String[] menuDiaFolga = new String[7];
-                        menuDiaFolga[0] = new String("Domingo");
-                        menuDiaFolga[1] = new String("Segunda");
-                        menuDiaFolga[2] = new String("terça");
-                        menuDiaFolga[3] = new String("Quarta");
-                        menuDiaFolga[4] = new String("Quinta");
-                        menuDiaFolga[5] = new String("Sexta");
-                        menuDiaFolga[6] = new String("Sábado");
-
-                        System.out.format("Dia de Folga: ");
-                        int inputDiaFolga = Menu.menu(menuDiaFolga);
-
-                        restaurante.cadastrarFuncionario(new Garcom(nome, cpf, rg, ec, end, ct, new Data(dia,mes,ano), sb, menuDiaFolga[inputDiaFolga]));
-                    }
-
+                    menuCadastroFuncionarios(restaurante);
                     break;
             }
+        }
+    }
+
+    private static void menuCadastroFuncionarios(Restaurante restaurante) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] menuTipoFuncionario = new String[2];
+        menuTipoFuncionario[0] = new String("Cozinheiro");
+        menuTipoFuncionario[1] = new String("Garçom");
+
+        Main.limparTermial();
+        System.out.format("==================== Cadastrar Funcionário ==================");
+        int input01 = Menu.menu(menuTipoFuncionario);
+
+        System.out.format("=============================================================");
+        System.out.format("\nNome: ");
+        String nome = scanner.nextLine();
+
+        String cpf;
+        while (true) {
+            System.out.format("CPF: ");
+            cpf = scanner.nextLine();
+
+            if (Funcionario.validarCPF(cpf)) {
+                break;
+            }
+            else {
+                System.out.format("\nCPF inválido!\n\n");
+            }
+        }
+        
+        System.out.format("RG: ");
+        String rg = scanner.nextLine();
+        System.out.format("Estado Civil: ");
+        String ec = scanner.nextLine();
+        System.out.format("Endereço: ");
+        String end = scanner.nextLine();
+        System.out.format("Carteira de Trabalho: ");
+        String ct = scanner.nextLine();
+        
+        System.out.format("Data de Adimissão: ");
+        System.out.format("\n - Dia: ");
+        int dia = scanner.nextInt();
+        System.out.format(" - Mes: ");
+        int mes = scanner.nextInt();
+        System.out.format(" - Ano: ");
+        int ano = scanner.nextInt();
+
+        if (input01 == 0) { //Cozinheiro
+            restaurante.cadastrarFuncionario(new Cozinheiro(nome, cpf, rg, ec, end, ct, new Data(dia,mes,ano)));
+        } else if (input01 == 1) { //garçom
+            System.out.format("Salário Base: ");
+            double sb = scanner.nextFloat();
+
+            String[] menuDiaFolga = new String[7];
+            menuDiaFolga[0] = new String("Domingo");
+            menuDiaFolga[1] = new String("Segunda");
+            menuDiaFolga[2] = new String("terça");
+            menuDiaFolga[3] = new String("Quarta");
+            menuDiaFolga[4] = new String("Quinta");
+            menuDiaFolga[5] = new String("Sexta");
+            menuDiaFolga[6] = new String("Sábado");
+
+            System.out.format("Dia de Folga: ");
+            int inputDiaFolga = Menu.menu(menuDiaFolga);
+
+            restaurante.cadastrarFuncionario(new Garcom(nome, cpf, rg, ec, end, ct, new Data(dia,mes,ano), sb, menuDiaFolga[inputDiaFolga]));
         }
     }
 
