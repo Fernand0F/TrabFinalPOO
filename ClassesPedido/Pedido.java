@@ -1,6 +1,11 @@
+package ClassesPedido;
 import java.util.ArrayList;
+
 import ClassesAuxiliares.Data;
 import ClassesAuxiliares.Hora;
+import ClassesItem.Item;
+import ClassesFuncionario.Cozinheiro;
+import ClassesFuncionario.Garcom;
 
 public class Pedido {
     private ArrayList<PedidoItem> conjuntoItens;
@@ -9,16 +14,18 @@ public class Pedido {
     private Hora horaPagamento;
     private String formaDePagamento;
     private double valorTotal;
-    // private Cozinheiro cozinheiro;
-    // private Garcom garcom;
+    private Cozinheiro cozinheiro;
+    private Garcom garcom;
 
     //Construtor
-    public Pedido(ArrayList<PedidoItem> conjuntoItens, Data dataDoPedido, Hora horaRegistro, Hora horaPagamento, String formaDePagamento) {
-        this.conjuntoItens = new ArrayList<>(conjuntoItens);
+    public Pedido(ArrayList<PedidoItem> conjuntoItens, Data dataDoPedido, Hora horaRegistro, Hora horaPagamento, String formaDePagamento, Cozinheiro coz, Garcom gar) {
+        this.conjuntoItens = new ArrayList<PedidoItem>(conjuntoItens);
         this.dataDoPedido = new Data(dataDoPedido);
         this.horaRegistro = new Hora(horaRegistro);
         this.horaPagamento = new Hora(horaPagamento);
-        this.formaDePagamento = new String(formaDePagamento);
+        this.formaDePagamento = formaDePagamento;
+        this.cozinheiro = new Cozinheiro(coz);
+        this.garcom = new Garcom(gar);
 
         double total = 0;
         for (int i = 0; i < conjuntoItens.size(); i++) {
@@ -33,6 +40,8 @@ public class Pedido {
         this.horaRegistro = pedido.getHoraRegistro();
         this.horaPagamento = pedido.getHoraPagamento();
         this.formaDePagamento = pedido.getFormaDePagamento();
+        this.cozinheiro = pedido.getCozinheiro();
+        this.garcom = pedido.getGarcom();
 
         double total = 0;
         for (int i = 0; i < conjuntoItens.size(); i++) {
@@ -43,7 +52,7 @@ public class Pedido {
 
     //Métodos GET
     public ArrayList<PedidoItem> getConjuntoItens() {
-        return new ArrayList<>(this.conjuntoItens);
+        return new ArrayList<PedidoItem>(this.conjuntoItens);
     }
 
     public Data getData() {
@@ -59,7 +68,15 @@ public class Pedido {
     }
 
     public String getFormaDePagamento() {
-        return new String(this.formaDePagamento);
+        return formaDePagamento;
+    }
+
+    public Cozinheiro getCozinheiro() {
+        return new Cozinheiro(cozinheiro);
+    }
+
+    public Garcom getGarcom() {
+        return new Garcom(garcom);
     }
 
     public double getValorTotal() {
@@ -67,14 +84,22 @@ public class Pedido {
     }
 
     //Métodos SET
-    public void setConjuntoItens(ArrayList<PedidoItem> conjunItems) {
-        this.conjuntoItens = new ArrayList<>(conjuntoItens);
+    public void setConjuntoItens(ArrayList<PedidoItem> conjuntoItems) {
+        this.conjuntoItens = new ArrayList<PedidoItem>(conjuntoItens);
 
         double total = 0;
         for (int i = 0; i < conjuntoItens.size(); i++) {
             total += this.conjuntoItens.get(i).getPreco();
         }
         this.valorTotal = total;
+    }
+
+    public void addPedidoItem(PedidoItem pd) {
+        conjuntoItens.add(new PedidoItem(pd));
+    }
+
+    public void addPedidoItem(Item item, int qtd) {
+        conjuntoItens.add(new PedidoItem(item, qtd));
     }
 
     public void setDataDoPedido(int dia, int mes, int ano) {
@@ -110,14 +135,14 @@ public class Pedido {
     }
 
     public void setFormaDePagamento(String formaDePagamento) {
-        this.formaDePagamento = new String(formaDePagamento);
+        this.formaDePagamento = formaDePagamento;
     }
 
-    //Outros métodos
-    public void addItem(Item item, int qtd) {
-        conjuntoItens.add(new PedidoItem(item, qtd));
+    public void setCozinheiro(Cozinheiro coz) {
+        this.cozinheiro = new Cozinheiro(coz);
     }
 
-    //**Adiconar Cozinheiro e Garçom ao construtor
-    //**Criar métodos GET/SET para Cozinheiro e Garçom
+    public void setGarcom(Garcom gar) {
+        this.garcom = new Garcom(gar);
+    }
 }
