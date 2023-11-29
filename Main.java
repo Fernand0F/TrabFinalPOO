@@ -8,25 +8,28 @@ public class Main
 		
 		while (true) {
 			int input;
-			String[] itensMenu = new String[4]; //Itens do menu
-			itensMenu[0] = new String("Cardapio");
-			itensMenu[1] = new String("Funcionários");
-			itensMenu[2] = new String("Recursos");
-			itensMenu[3] = new String("Sair");
+			String[] itensMenu = new String[5]; //Itens do menu
+			itensMenu[0] = new String("Pedidos");
+			itensMenu[1] = new String("Cardapio");
+			itensMenu[2] = new String("Funcionários");
+			itensMenu[3] = new String("Recursos");
+			itensMenu[4] = new String("Sair");
 
 			limparTermial();
 			System.out.format("======================== Restaurante ========================");
 			input = Menu.menu(itensMenu);
 
-			if (input == 3) break;
+			if (input == 4) break;
 
 			switch (input) { 
 				case 0:
 					break;
 				case 1:
-					Menu.menuFuncionarios(restaurante);
 					break;
 				case 2:
+					Menu.menuFuncionarios(restaurante);
+					break;
+				case 3:
 					Menu.menuRecursos(restaurante);
 					break;
 			}

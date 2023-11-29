@@ -23,6 +23,17 @@ public class Menu {
         return input;
     }
 
+    //A fazer
+    public static void menuPedidos(Restaurante restaurante) {
+
+    }
+
+    //A fazer
+    public static void menuCardapio(Restaurante restaurante) {
+
+    }
+
+    //Incompleto
     public static void menuFuncionarios(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
