@@ -160,6 +160,8 @@ public class Menu {
                 for (int i = 0; i < intensMenuIng.size(); i++) {
                     System.out.format("\n %d - %s", i, intensMenuIng.get(i));
                 }
+                System.out.format("\n=============================================================");
+                System.out.println("Opção: ");
 
                 int input02 = scanner.nextInt();
 
@@ -228,12 +230,13 @@ public class Menu {
                 for (int i = 0; i < listaIngredientes.size(); i++) {
                     System.out.println(" - " + listaIngredientes.get(i));
                 }
-                System.out.format("\n=================== Adicionar Ingredientes ==================\n");
+                System.out.format("\n=================== Adicionar Ingredientes ==================");
                 
                 for (int i = 0; i < intensMenuIng.size(); i++) {
                     System.out.format("\n %d - %s", i, intensMenuIng.get(i));
                 }
-                System.out.format("\n %d - Continuar", intensMenuIng.size());
+                System.out.format("\n=============================================================");
+                System.out.println("Opção: ");
 
                 int input02 = scanner.nextInt();
 
