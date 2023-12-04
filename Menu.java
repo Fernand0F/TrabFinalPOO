@@ -8,6 +8,7 @@ import ClassesFuncionario.Cozinheiro;
 import ClassesFuncionario.Garcom;
 import ClassesItem.Item;
 import ClassesItem.PratoPrincipal;
+import ClassesItem.Sobremesa;
 
 public class Menu {
     public static int menu(String[] itens, String titulo) {
@@ -111,64 +112,145 @@ public class Menu {
     private static void cadastrarPratoPrincial(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.format("Nome do prato: ");
-        String nome = scanner.nextLine();
+        if (restaurante.getIngredientes().size() == 0) {
 
-        String codigo;
-        while (true) {
-            System.out.format("Código do prato [AA000]: ");
-            codigo = scanner.nextLine();
-            if (Item.validarCodigo(codigo)) {
-                break;
-            } else {
-                System.out.format("\nCódigo inválido!\n\n");
+            System.out.println("Nenhum ingrediente cadastrado!");
+            scanner.nextLine();
+
+        } else {
+
+            System.out.format("Nome do prato: ");
+            String nome = scanner.nextLine();
+
+            String codigo;
+            while (true) {
+                System.out.format("Código do prato [AA000]: ");
+                codigo = scanner.nextLine();
+                if (Item.validarCodigo(codigo)) {
+                    break;
+                } else {
+                    System.out.format("\nCódigo inválido!\n\n");
+                }
             }
-        }
-        
-        System.out.format("Decrição do prato: ");
-        String descricao = scanner.nextLine();
-        System.out.format("Preço unitário: ");
-        double precoUnitario = scanner.nextDouble();
-        System.out.format("Preço de custo: ");
-        double precoCusto = scanner.nextDouble();
-        System.out.format("Tempo de preparo: ");
-        double tempoDePreparo = scanner.nextDouble();
-
-        ArrayList<String> listaIngredientes = new ArrayList<String>();
-        ArrayList<String> intensMenuIng = new ArrayList<String>(restaurante.getIngredientes());
-        intensMenuIng.add("Continuar");
-
-        while (true) {
-            Main.limparTermial();
-        
-            System.out.format("================== Ingredientes Adicionados =================\n");
-            for (int i = 0; i < listaIngredientes.size(); i++) {
-                System.out.println(" - " + listaIngredientes.get(i));
-            }
-            System.out.format("\n=================== Adicionar Ingredientes ==================");
             
-            for (int i = 0; i < intensMenuIng.size(); i++) {
-                System.out.println(" - " + intensMenuIng.get(i));
+            System.out.format("Decrição do prato: ");
+            String descricao = scanner.nextLine();
+            System.out.format("Preço unitário: ");
+            double precoUnitario = scanner.nextDouble();
+            System.out.format("Preço de custo: ");
+            double precoCusto = scanner.nextDouble();
+            System.out.format("Tempo de preparo: ");
+            double tempoDePreparo = scanner.nextDouble();
+            System.out.format("Valor pago ao cozinheiro: ");
+            double valorPagoCozinheiro = scanner.nextDouble();
+
+            ArrayList<String> listaIngredientes = new ArrayList<String>();
+            ArrayList<String> intensMenuIng = new ArrayList<String>(restaurante.getIngredientes());
+            intensMenuIng.add("Continuar");
+
+            while (true) {
+                Main.limparTermial();
+            
+                System.out.format("================== Ingredientes Adicionados =================\n");
+                for (int i = 0; i < listaIngredientes.size(); i++) {
+                    System.out.println(" - " + listaIngredientes.get(i));
+                }
+                System.out.format("\n=================== Adicionar Ingredientes ==================");
+                
+                for (int i = 0; i < intensMenuIng.size(); i++) {
+                    System.out.format("\n %d - %s", i, intensMenuIng.get(i));
+                }
+
+                int input02 = scanner.nextInt();
+
+                if (input02 == intensMenuIng.size()-1) break;
+                else {
+                    listaIngredientes.add(intensMenuIng.get(input02));
+                }
             }
 
-            int input02 = scanner.nextInt();
+            listaIngredientes = listaIngredientes.stream().distinct().collect(Collectors.toCollection(ArrayList::new));
 
-            if (input02 == intensMenuIng.size()-1) break;
-            else {
-                listaIngredientes.add(intensMenuIng.get(input02));
-            }
+            PratoPrincipal prato = new PratoPrincipal(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricao, tempoDePreparo, valorPagoCozinheiro);
+            restaurante.cadastrarItem(prato);
+            System.out.println("Prato cadastrado");
+            scanner.nextLine();
+
         }
-
-        listaIngredientes = listaIngredientes.stream().distinct().collect(Collectors.toCollection(ArrayList::new));
-
-        PratoPrincipal prato = new PratoPrincipal(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricao, tempoDePreparo);
-        restaurante.cadastrarItem(prato);
-        System.out.println("Prato cadastrado");
-        scanner.nextLine();
+        
     }
 
     private static void cadastrarSobremesa(Restaurante restaurante) {
+        Scanner scanner = new Scanner(System.in);
+        
+        if (restaurante.getIngredientes().size() == 0) {
 
+            System.out.println("Nenhum ingrediente cadastrado!");
+            scanner.nextLine();
+
+        } else {
+
+            System.out.format("Nome do prato: ");
+            String nome = scanner.nextLine();
+
+            String codigo;
+            while (true) {
+                System.out.format("Código do prato [AA000]: ");
+                codigo = scanner.nextLine();
+                if (Item.validarCodigo(codigo)) {
+                    break;
+                } else {
+                    System.out.format("\nCódigo inválido!\n\n");
+                }
+            }
+            
+            System.out.format("Decrição do prato: ");
+            String descricao = scanner.nextLine();
+            System.out.format("Número de calorias: ");
+            double calorias = scanner.nextDouble();
+            System.out.format("Preço unitário: ");
+            double precoUnitario = scanner.nextDouble();
+            System.out.format("Preço de custo: ");
+            double precoCusto = scanner.nextDouble();
+            System.out.format("Tempo de preparo: ");
+            double tempoDePreparo = scanner.nextDouble();
+            System.out.format("Valor pago ao cozinheiro: ");
+            double valorPagoCozinheiro = scanner.nextDouble();
+
+            ArrayList<String> listaIngredientes = new ArrayList<String>();
+            ArrayList<String> intensMenuIng = new ArrayList<String>(restaurante.getIngredientes());
+            intensMenuIng.add("Continuar");
+
+            while (true) {
+                Main.limparTermial();
+            
+                System.out.format("================== Ingredientes Adicionados =================\n");
+                for (int i = 0; i < listaIngredientes.size(); i++) {
+                    System.out.println(" - " + listaIngredientes.get(i));
+                }
+                System.out.format("\n=================== Adicionar Ingredientes ==================\n");
+                
+                for (int i = 0; i < intensMenuIng.size(); i++) {
+                    System.out.format("\n %d - %s", i, intensMenuIng.get(i));
+                }
+                System.out.format("\n %d - Continuar", intensMenuIng.size());
+
+                int input02 = scanner.nextInt();
+
+                if (input02 == intensMenuIng.size()-1) break;
+                else {
+                    listaIngredientes.add(intensMenuIng.get(input02));
+                }
+            }
+
+            listaIngredientes = listaIngredientes.stream().distinct().collect(Collectors.toCollection(ArrayList::new));
+
+            Sobremesa prato = new Sobremesa(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricao, tempoDePreparo, valorPagoCozinheiro, calorias);
+            restaurante.cadastrarItem(prato);
+            System.out.println("Prato cadastrado");
+            scanner.nextLine();
+
+        }
     }
 
     private static void cadastrarBebida(Restaurante restaurante) {
@@ -268,7 +350,13 @@ public class Menu {
 
             // MUDAR
             System.out.format("Dia de Folga: ");
-            int inputDiaFolga = Menu.menu(menuDiaFolga);
+            System.out.format("\n=============================================================");
+            for (int i = 0; i < 7; i++) {
+                System.out.format("\n %d - %s", i, menuDiaFolga[i]);
+            }
+            System.out.format("\n=============================================================");
+            System.out.println("Opção: ");
+            int inputDiaFolga = scanner.nextInt();
 
             restaurante.cadastrarFuncionario(new Garcom(nome, cpf, rg, ec, end, ct, new Data(dia,mes,ano), sb, menuDiaFolga[inputDiaFolga]));
         }

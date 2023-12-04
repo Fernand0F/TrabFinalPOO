@@ -6,13 +6,13 @@ public class Sobremesa extends Prato {
     private double numeroCalorias;
 
     //Construtores
-    public Sobremesa(String nome, String codigo, double precoUnitario, double precoCusto, ArrayList<String> listaIngredientes, String descricaoPrato, double tempoPreparo, double numeroCalorias) {
-        super(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricaoPrato, tempoPreparo);
+    public Sobremesa(String nome, String codigo, double precoUnitario, double precoCusto, ArrayList<String> listaIngredientes, String descricaoPrato, double tempoPreparo, double valorPagoCozinheiro, double numeroCalorias) {
+        super(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricaoPrato, tempoPreparo, valorPagoCozinheiro);
         this.numeroCalorias = numeroCalorias;
     }
 
     public Sobremesa(Sobremesa prato) {
-        super(prato.getNome(), prato.getCodigo(), prato.getPrecoUnitario(), prato.getPrecoCusto(), prato.getListaIngredientes(), prato.getDescricaoPrato(), prato.getTempoPreparo());
+        super(prato.getNome(), prato.getCodigo(), prato.getPrecoUnitario(), prato.getPrecoCusto(), prato.getListaIngredientes(), prato.getDescricaoPrato(), prato.getTempoPreparo(), prato.getValorPagoCozinheiro());
         this.numeroCalorias = prato.getNumeroCalorias();
     }
 

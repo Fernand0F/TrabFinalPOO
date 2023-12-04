@@ -6,14 +6,16 @@ public abstract class Prato extends Item {
     private ArrayList<String> listaIngredientes;
     private String descricaoPrato;
     private double tempoPreparo;
-    private static double valorPagoCozinheiro;
+    private double valorPagoCozinheiro;
 
     //Cosntrutor
-    public Prato(String nome, String codigo, double precoUnitario, double precoCusto, ArrayList<String> listaIngredientes, String descricaoPrato, double tempoPreparo) {
+    public Prato(String nome, String codigo, double precoUnitario, double precoCusto, ArrayList<String> listaIngredientes, String descricaoPrato, double tempoPreparo, double valorPagoCozinheiro) {
         super(nome, codigo, precoUnitario, precoCusto);
         this.listaIngredientes = new ArrayList<String>(listaIngredientes);
         this.descricaoPrato = descricaoPrato;
         this.tempoPreparo = tempoPreparo;
+        this.valorPagoCozinheiro = valorPagoCozinheiro;
+        this.valorPagoCozinheiro = valorPagoCozinheiro;
     }
 
     public Prato(Prato prato) {
@@ -21,6 +23,7 @@ public abstract class Prato extends Item {
         this.listaIngredientes = prato.getListaIngredientes();
         this.descricaoPrato = prato.getDescricaoPrato();
         this.tempoPreparo = prato.getTempoPreparo();
+        this.valorPagoCozinheiro = prato.getValorPagoCozinheiro();
     }
 
     //Métodos GET/SET
@@ -53,7 +56,7 @@ public abstract class Prato extends Item {
     }
 
     public void setValorPagoCozinheiro(double valorPagoCozinheiro) {
-        Prato.valorPagoCozinheiro = valorPagoCozinheiro;
+        this.valorPagoCozinheiro = valorPagoCozinheiro;
     }
 
     //Outros métodos
