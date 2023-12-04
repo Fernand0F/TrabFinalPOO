@@ -1,4 +1,4 @@
-
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,24 +6,35 @@ import ClassesAuxiliares.Data;
 import ClassesFuncionario.Funcionario;
 import ClassesFuncionario.Cozinheiro;
 import ClassesFuncionario.Garcom;
+import ClassesItem.Item;
 import ClassesItem.PratoPrincipal;
 
 public class Menu {
-    public static int menu(String[] itens) {
+    public static int menu(String[] itens, String titulo) {
         Scanner scanner = new Scanner(System.in);
-        int input = -1;
+        int input;
+        int tamanhoLado = (60 - titulo.length()) / 2;
+        String linha = "=".repeat(tamanhoLado) + " " + titulo + " " + "=".repeat(tamanhoLado);
 
-        for (int i = 0; i < itens.length; i++) {
-            System.out.format("\n %d - %s", i, itens[i]);
+        while (true) {
+            Main.limparTermial();
+            System.out.format(linha);
+            for (int i = 0; i < itens.length; i++) {
+                System.out.format("\n %d - %s", i, itens[i]);
+            }
+            System.out.format("\n=============================================================");
+
+            System.out.format("\nOpção: ");
+
+            try {
+                input = scanner.nextInt();
+            } catch(Exception e) {
+                input = -1;
+            } 
+            if (input >= 0 || input < itens.length) break;
         }
-        System.out.format("\n=============================================================");
-
-        System.out.format("\nOpção: ");
-
-
-        input = scanner.nextInt();
-
-        return input;
+         
+        return input;   
     }
 
     //A fazer
@@ -45,9 +56,7 @@ public class Menu {
         while (true) {
             Scanner scanner = new Scanner(System.in);
 
-            Main.limparTermial();
-            System.out.format("========================== Cardápio =========================");
-            int input01 = Menu.menu(itensMenuCardapio);
+            int input01 = Menu.menu(itensMenuCardapio, "Cardápio");
 
             if (input01 == 2) break; //sair do loop
 
@@ -71,8 +80,6 @@ public class Menu {
     }
 
     private static void cadastrarItem(Restaurante restaurante) {
-        Scanner scanner = new Scanner(System.in);
-
         String[] itensMenuCadastroItem = new String[4]; //Itens do menu
         itensMenuCadastroItem[0] = new String("Cadastrar Prato Principal");
         itensMenuCadastroItem[1] = new String("Cadastrar Sobremesa");
@@ -82,63 +89,90 @@ public class Menu {
 
         while (true) {
             Main.limparTermial();
-            System.out.format("======================= Cadastrar Item ======================");
-            int input01 = Menu.menu(itensMenuCadastroItem);
+
+            int input01 = Menu.menu(itensMenuCadastroItem, "Cadastrar Item");
 
             if (input01 == 3) break;
 
             switch (input01) {
                 case 0:
-                    System.out.format("Nome do prato: ");
-                    String nome = scanner.nextLine();
-                    System.out.format("Código do prato [AA000]: ");
-                    String codigo = scanner.nextLine();
-                    System.out.format("Decrição do prato: ");
-                    String descricao = scanner.nextLine();
-                    System.out.format("Preço unitário: ");
-                    double precoUnitario = scanner.nextDouble();
-                    System.out.format("Preço de custo: ");
-                    double precoCusto = scanner.nextDouble();
-                    System.out.format("Tempo de preparo: ");
-                    double tempoDePreparo = scanner.nextDouble();
-
-                    ArrayList<String> listaIngredientes = new ArrayList<String>();
-                    ArrayList<String> intensMenuIng = new ArrayList<String>(restaurante.getIngredientes());
-                    intensMenuIng.add("Continuar");
-
-                    while (true) {
-                        Main.limparTermial();
-                    
-                        System.out.format("================== Ingredientes Adicionados =================\n");
-                        for (int i = 0; i < listaIngredientes.size(); i++) {
-                            System.out.println(" - " + listaIngredientes.get(i));
-                        }
-                        System.out.format("\n=================== Adicionar Ingredientes ==================");
-                        
-
-                        int input02 = Menu.menu(intensMenuIng.toArray(new String[0]));
-
-                        if (input02 == intensMenuIng.size()-1) break;
-                        else {
-                            listaIngredientes.add(intensMenuIng.get(input02));
-                        }
-                    }
-
-                    PratoPrincipal prato = new PratoPrincipal(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricao, tempoDePreparo);
-                    restaurante.cadastrarItem(prato);
-                    System.out.println("Prato cadastrado");
-                    scanner.nextLine();
+                    cadastrarPratoPrincial(restaurante);
                     break;
-
                 case 1:
-                    
+                    cadastrarSobremesa(restaurante);
                     break;
-
                 case 2:
-                    
+                    cadastrarBebida(restaurante);
                     break;
             }
         }
+    }
+
+    private static void cadastrarPratoPrincial(Restaurante restaurante) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.format("Nome do prato: ");
+        String nome = scanner.nextLine();
+
+        String codigo;
+        while (true) {
+            System.out.format("Código do prato [AA000]: ");
+            codigo = scanner.nextLine();
+            if (Item.validarCodigo(codigo)) {
+                break;
+            } else {
+                System.out.format("\nCódigo inválido!\n\n");
+            }
+        }
+        
+        System.out.format("Decrição do prato: ");
+        String descricao = scanner.nextLine();
+        System.out.format("Preço unitário: ");
+        double precoUnitario = scanner.nextDouble();
+        System.out.format("Preço de custo: ");
+        double precoCusto = scanner.nextDouble();
+        System.out.format("Tempo de preparo: ");
+        double tempoDePreparo = scanner.nextDouble();
+
+        ArrayList<String> listaIngredientes = new ArrayList<String>();
+        ArrayList<String> intensMenuIng = new ArrayList<String>(restaurante.getIngredientes());
+        intensMenuIng.add("Continuar");
+
+        while (true) {
+            Main.limparTermial();
+        
+            System.out.format("================== Ingredientes Adicionados =================\n");
+            for (int i = 0; i < listaIngredientes.size(); i++) {
+                System.out.println(" - " + listaIngredientes.get(i));
+            }
+            System.out.format("\n=================== Adicionar Ingredientes ==================");
+            
+            for (int i = 0; i < intensMenuIng.size(); i++) {
+                System.out.println(" - " + intensMenuIng.get(i));
+            }
+
+            int input02 = scanner.nextInt();
+
+            if (input02 == intensMenuIng.size()-1) break;
+            else {
+                listaIngredientes.add(intensMenuIng.get(input02));
+            }
+        }
+
+        listaIngredientes = listaIngredientes.stream().distinct().collect(Collectors.toCollection(ArrayList::new));
+
+        PratoPrincipal prato = new PratoPrincipal(nome, codigo, precoUnitario, precoCusto, listaIngredientes, descricao, tempoDePreparo);
+        restaurante.cadastrarItem(prato);
+        System.out.println("Prato cadastrado");
+        scanner.nextLine();
+    }
+
+    private static void cadastrarSobremesa(Restaurante restaurante) {
+
+    }
+
+    private static void cadastrarBebida(Restaurante restaurante) {
+        
     }
 
     //Incompleto
@@ -151,9 +185,7 @@ public class Menu {
         itensMenuFuncionarios[2] = new String("Voltar");
 
         while (true) {
-            Main.limparTermial();
-            System.out.format("======================== Funcionário ========================");
-            int input01 = Menu.menu(itensMenuFuncionarios);
+            int input01 = Menu.menu(itensMenuFuncionarios, "Funcionário");
             
             if (input01 == 2) break; //sair do loop
 
@@ -183,9 +215,7 @@ public class Menu {
         menuTipoFuncionario[0] = new String("Cozinheiro");
         menuTipoFuncionario[1] = new String("Garçom");
 
-        Main.limparTermial();
-        System.out.format("==================== Cadastrar Funcionário ==================");
-        int input01 = Menu.menu(menuTipoFuncionario);
+        int input01 = Menu.menu(menuTipoFuncionario, "Cadastrar Funcionário");
 
         System.out.format("=============================================================");
         System.out.format("\nNome: ");
@@ -236,6 +266,7 @@ public class Menu {
             menuDiaFolga[5] = new String("Sexta");
             menuDiaFolga[6] = new String("Sábado");
 
+            // MUDAR
             System.out.format("Dia de Folga: ");
             int inputDiaFolga = Menu.menu(menuDiaFolga);
 
@@ -251,9 +282,7 @@ public class Menu {
         itensMenuRecursos[3] = new String("Voltar");
 
         while (true) {
-            Main.limparTermial();
-            System.out.format("========================= Recursos ==========================");
-            int input01 = Menu.menu(itensMenuRecursos);
+            int input01 = Menu.menu(itensMenuRecursos, "Recursos");
 
             if (input01 == 3) break;
 
@@ -282,9 +311,7 @@ public class Menu {
         itensMenuIngredintes[2] = new String("Voltar");
 
         while (true) {
-            Main.limparTermial();
-            System.out.format("======================= Ingredientes ========================");
-            int input01 = Menu.menu(itensMenuIngredintes);
+            int input01 = Menu.menu(itensMenuIngredintes, "Ingredientes");
             
             if (input01 == 2) break; //sair do loop
 
@@ -320,10 +347,7 @@ public class Menu {
         itensMenuEmbalagens[2] = new String("Voltar");
 
         while (true) {
-            
-            Main.limparTermial();
-            System.out.format("======================== Embalagens =========================");
-            int input01 = Menu.menu(itensMenuEmbalagens);
+            int input01 = Menu.menu(itensMenuEmbalagens, "Embalagens");
             
             if (input01 == 2) break; //Sair do loop
 
@@ -359,11 +383,7 @@ public class Menu {
         itensMenuPagmento[2] = new String("Voltar");
 
         while (true) {
-            
-
-            Main.limparTermial();
-            System.out.format("========================= Pagamento =========================");
-            int input01 = Menu.menu(itensMenuPagmento);
+            int input01 = Menu.menu(itensMenuPagmento, "Pagamento");
             
             if (input01 == 2) break; //Sair do loop
 

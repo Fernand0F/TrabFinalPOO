@@ -15,9 +15,7 @@ public class Main
 			itensMenu[3] = new String("Recursos");
 			itensMenu[4] = new String("Sair");
 
-			limparTermial();
-			System.out.format("======================== Restaurante ========================");
-			input = Menu.menu(itensMenu);
+			input = Menu.menu(itensMenu, "Restaurante");
 
 			if (input == 4) break;
 
