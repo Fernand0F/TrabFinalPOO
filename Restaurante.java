@@ -152,7 +152,7 @@ public class Restaurante {
 
             } else if (funcionarios.get(i) instanceof Garcom) {
 
-                System.out.format("\nCargo...............: garçom");
+                System.out.format("\nCargo...............: Garçom");
                 System.out.format("\nSalário base........: %.2f", ((Garcom) funcionarios.get(i)).getSalarioBase());
                 System.out.format("\nDia de folga........: %s", ((Garcom) funcionarios.get(i)).getDiaFolga());
             
@@ -163,7 +163,20 @@ public class Restaurante {
             System.out.format("\nEstado civil........: %s", funcionarios.get(i).getEstadoCivil());
             System.out.format("\nEndereço............: %s", funcionarios.get(i).getEndereco());
             System.out.format("\nCarteira de trabalho: %s", funcionarios.get(i).getCarteiraTrabalho());
-            System.out.format("\nData de admissão....: %02d/%02d/%d \n\n", funcionarios.get(i).getData().getDia(), funcionarios.get(i).getData().getMes(), funcionarios.get(i).getData().getAno());
+            System.out.format("\nData de admissão....: %02d/%02d/%d", funcionarios.get(i).getData().getDia(), funcionarios.get(i).getData().getMes(), funcionarios.get(i).getData().getAno());
+        
+            if (funcionarios.get(i) instanceof Cozinheiro) {
+
+                ArrayList<Item> itensCozinheiro = ((Cozinheiro) funcionarios.get(i)).getPratosCozinheiro();
+
+                System.out.format("\nPratos:");
+                for (int j = 0; j < itensCozinheiro.size(); j++) {
+                    System.out.format("\n - %s", itensCozinheiro.get(i).getNome());
+                }
+
+            }
+
+            System.out.format("\n\n");
         }
     }
 }

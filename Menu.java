@@ -162,7 +162,7 @@ public class Menu {
                     System.out.format("\n %d - %s", i, intensMenuIng.get(i));
                 }
                 System.out.format("\n=============================================================");
-                System.out.println("Opção: ");
+                System.out.println("\nOpção: ");
 
                 int input02 = scanner.nextInt();
 
@@ -237,7 +237,7 @@ public class Menu {
                     System.out.format("\n %d - %s", i, intensMenuIng.get(i));
                 }
                 System.out.format("\n=============================================================");
-                System.out.println("Opção: ");
+                System.out.println("\nOpção: ");
 
                 int input02 = scanner.nextInt();
 
@@ -317,10 +317,14 @@ public class Menu {
                     }
 
                     scanner.nextLine();
+
                     break;
 
                 case 1:
                     menuCadastroFuncionarios(restaurante);
+
+                    scanner.nextLine();
+
                     break;
             }
         }
@@ -370,7 +374,44 @@ public class Menu {
         int ano = scanner.nextInt();
 
         if (input01 == 0) { //Cozinheiro
-            restaurante.cadastrarFuncionario(new Cozinheiro(nome, cpf, rg, ec, end, ct, new Data(dia,mes,ano)));
+            ArrayList<Item> itensCadastrados = new ArrayList<Item>();
+
+            while (true) {
+                Main.limparTermial();
+                
+                System.out.format("=============== Pratos que o Cozinheiro Prepara =============\n");
+                System.out.format("===================== Pratos Adicionados ====================\n");
+                
+                for (int i = 0; i < itensCadastrados.size(); i++) {
+                    System.out.println(" - " + itensCadastrados.get(i).getNome());
+                }
+
+                System.out.format("\n======================= Adicionar Prato =====================");
+                
+                for (int i = 0; i < restaurante.getCardapio().size(); i++) {
+                    System.out.format("\n %d - %s", i, restaurante.getCardapio().get(i).getNome());
+                }
+                System.out.format("\n %d - Continuar", restaurante.getCardapio().size());
+
+                System.out.format("\n=============================================================");
+                System.out.println("\nOpção: ");
+
+                int input02 = scanner.nextInt();
+
+                if (input02 == restaurante.getCardapio().size()) break;
+                else {
+                    itensCadastrados.add(restaurante.getCardapio().get(input02));
+                }
+            }
+
+            Cozinheiro c = new Cozinheiro(nome, cpf, rg, ec, end, ct, new Data(dia,mes,ano));
+
+            for (int i = 0; i < itensCadastrados.size(); i++) {
+                c.addPratoCrozinheiro(itensCadastrados.get(i));
+            } 
+
+            restaurante.cadastrarFuncionario(c);
+            
         } else if (input01 == 1) { //garçom
             System.out.format("Salário Base: ");
             double sb = scanner.nextFloat();
