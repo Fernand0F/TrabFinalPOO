@@ -40,4 +40,14 @@ public class Garcom extends Funcionario {
         //***o calculo q eu n sei
         return 0.5;
     }
+
+    public double calcSalario(double salarioBase, int numeroPedidosMes, double limitePedidos, double gratificacaoExtra) {
+        double salario = salarioBase;
+    
+        if (numeroPedidosMes > limitePedidos) {
+            salario += gratificacaoExtra;
+        }
+    
+        return salario;
+    }
 }

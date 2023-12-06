@@ -6,6 +6,7 @@ import ClassesAuxiliares.Data;
 import ClassesFuncionario.Funcionario;
 import ClassesFuncionario.Cozinheiro;
 import ClassesFuncionario.Garcom;
+import ClassesItem.Bebida;
 import ClassesItem.Item;
 import ClassesItem.PratoPrincipal;
 import ClassesItem.Sobremesa;
@@ -257,8 +258,41 @@ public class Menu {
     }
 
     private static void cadastrarBebida(Restaurante restaurante) {
-        
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.format("Nome da bebida: ");
+    String nome = scanner.nextLine();
+
+    String codigo;
+    while (true) {
+        System.out.format("Código da bebida [AA000]: ");
+        codigo = scanner.nextLine();
+        if (Item.validarCodigo(codigo)) {
+            break;
+        } else {
+            System.out.format("\nCódigo inválido!\n\n");
+        }
     }
+
+    System.out.format("Tamanho da embalagem: ");
+    double tamanhoEmbalagem = scanner.nextDouble();
+    scanner.nextLine();
+
+    System.out.format("Tipo de embalagem: ");
+    String tipoEmbalagem = scanner.nextLine();
+
+    System.out.format("Preço unitário: ");
+    double precoUnitario = scanner.nextDouble();
+    
+    System.out.format("Preço de custo: ");
+    double precoCusto = scanner.nextDouble();
+
+    Bebida bebida = new Bebida(nome, codigo, precoUnitario, precoCusto, tamanhoEmbalagem, tipoEmbalagem);
+    restaurante.cadastrarItem(bebida);
+
+    System.out.println("Bebida cadastrada");
+    scanner.nextLine();
+}
 
     //Incompleto
     public static void menuFuncionarios(Restaurante restaurante) {

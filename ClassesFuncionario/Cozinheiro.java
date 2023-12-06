@@ -43,4 +43,18 @@ public class Cozinheiro extends Funcionario {
         //***o calculo q eu n sei
         return 0.5;
     }
+
+    public double calcSalario(double valorPratoPrincipal, double valorSobremesa) {
+        double salario = 0.0;
+    
+        for (Item item : pratosCozinheiro) {
+            if (item instanceof PratoPrincipal) {
+                salario += valorPratoPrincipal;
+            } else if (item instanceof Sobremesa) {
+                salario += valorSobremesa;
+            }
+        }
+    
+        return salario;
+    }
 }
