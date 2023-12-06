@@ -143,12 +143,27 @@ public class Restaurante {
 
     public void mostrarFuncionarios() {
         for (int i = 0; i < funcionarios.size(); i++) {
-            System.out.format("\nNome: %s", funcionarios.get(i).getNome());
+
+                System.out.format("Nome................: %s", funcionarios.get(i).getNome());
+
             if (funcionarios.get(i) instanceof Cozinheiro) {
-                System.out.format("\nCargo: Cozinheiro\n");
+
+                System.out.format("\nCargo...............: Cozinheiro");
+
             } else if (funcionarios.get(i) instanceof Garcom) {
-                System.out.format("\nCargo: garçom\n");
+
+                System.out.format("\nCargo...............: garçom");
+                System.out.format("\nSalário base........: %.2f", ((Garcom) funcionarios.get(i)).getSalarioBase());
+                System.out.format("\nDia de folga........: %s", ((Garcom) funcionarios.get(i)).getDiaFolga());
+            
             }
+
+            System.out.format("\nCPF.................: %s", funcionarios.get(i).getCPF());
+            System.out.format("\nRG..................: %s", funcionarios.get(i).getRG());
+            System.out.format("\nEstado civil........: %s", funcionarios.get(i).getEstadoCivil());
+            System.out.format("\nEndereço............: %s", funcionarios.get(i).getEndereco());
+            System.out.format("\nCarteira de trabalho: %s", funcionarios.get(i).getCarteiraTrabalho());
+            System.out.format("\nData de admissão....: %02d/%02d/%d \n\n", funcionarios.get(i).getData().getDia(), funcionarios.get(i).getData().getMes(), funcionarios.get(i).getData().getAno());
         }
     }
 }

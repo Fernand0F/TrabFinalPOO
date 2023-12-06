@@ -260,7 +260,6 @@ public class Menu {
         
     }
 
-    //Incompleto
     public static void menuFuncionarios(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
@@ -358,7 +357,7 @@ public class Menu {
                 System.out.format("\n %d - %s", i, menuDiaFolga[i]);
             }
             System.out.format("\n=============================================================");
-            System.out.println("Opção: ");
+            System.out.println("\nOpção: ");
             int inputDiaFolga = scanner.nextInt();
 
             restaurante.cadastrarFuncionario(new Garcom(nome, cpf, rg, ec, end, ct, new Data(dia,mes,ano), sb, menuDiaFolga[inputDiaFolga]));
