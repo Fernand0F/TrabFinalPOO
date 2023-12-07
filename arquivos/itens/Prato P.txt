@@ -1,9 +1,0 @@
-PratoPrincipal
-Prato P
-AB123
-100,5
-50,75
-Desc
-20
-10
-Pão;Salsicha;

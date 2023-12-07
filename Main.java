@@ -10,17 +10,33 @@ import ClassesPedido.Pedido;
 public class Main
 {
 	public static void main(String[] args) {
-		ArrayList<String> ing = Arquivo.lerRecursos("arquivos/recursos/ingredientes.txt");
-		ArrayList<String> emb = Arquivo.lerRecursos("arquivos/recursos/tiposDeEmbalagem.txt");
-		ArrayList<String> pag = Arquivo.lerRecursos("arquivos/recursos/formasDePagamento.txt");
-		ArrayList<Item> items = Arquivo.lerDirItens("arquivos/itens");
+		ArrayList<String> ing = new ArrayList<>();
+		ArrayList<String> emb = new ArrayList<>();
+		ArrayList<String> pag = new ArrayList<>();
+		ArrayList<Item> items = new ArrayList<>();
+
+		try {
+			ing = Arquivo.lerRecursos("arquivos/recursos/ingredientes.txt");
+			emb = Arquivo.lerRecursos("arquivos/recursos/tiposDeEmbalagem.txt");
+			pag = Arquivo.lerRecursos("arquivos/recursos/formasDePagamento.txt");
+			items = Arquivo.lerDirItens("arquivos/itens");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 
 		Restaurante restaurante = new Restaurante();
 
-		restaurante.setIng(ing);
-		restaurante.setEmb(emb);
-		restaurante.setPag(pag);
-		restaurante.setItens(items);
+		try {
+			restaurante.setIng(ing);
+			restaurante.setEmb(emb);
+			restaurante.setPag(pag);
+			restaurante.setItens(items);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
 
 		ArrayList<Funcionario> func = Arquivo.lerDirFuncionarios(restaurante, "arquivos/funcionarios");
 		restaurante.setFunc(func);
@@ -58,9 +74,14 @@ public class Main
 		}	
 		
 		try {
-			Arquivo.cadastrarIgredientes(restaurante.getIngredientes());
-			Arquivo.cadastrarFormasDePagameto(restaurante.getFormasDePagamento());
-			Arquivo.cadastrarTiposDeEmbalagem(restaurante.getTiposDeEmbalagem());
+			if (restaurante.getIngredientes().size() > 0) 
+				Arquivo.cadastrarIgredientes(restaurante.getIngredientes());
+			if (restaurante.getFormasDePagamento().size() > 0) 
+				Arquivo.cadastrarFormasDePagameto(restaurante.getFormasDePagamento());
+			if (restaurante.getTiposDeEmbalagem().size() > 0) 
+				Arquivo.cadastrarTiposDeEmbalagem(restaurante.getTiposDeEmbalagem());
+			
+
 			for (int i = 0; i < restaurante.getFuncionarios().size(); i++) {
 				Arquivo.cadastrarFuncionario(restaurante.getFuncionarios().get(i));
 			}
