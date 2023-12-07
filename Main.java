@@ -1,10 +1,40 @@
-import java.util.Scanner;
+// import java.util.Scanner;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import ClassesAuxiliares.Data;
+import ClassesAuxiliares.Hora;
+import ClassesFuncionario.Cozinheiro;
+import ClassesFuncionario.Funcionario;
+import ClassesFuncionario.Garcom;
+import ClassesItem.Bebida;
+import ClassesItem.Item;
+import ClassesItem.PratoPrincipal;
+import ClassesItem.Sobremesa;
+import ClassesPedido.Pedido;
+import ClassesPedido.PedidoItem;
 
 public class Main
 {
-	static Restaurante restaurante = new Restaurante();
-	static Scanner scanner = new Scanner(System.in);
 	public static void main(String[] args) {
+		ArrayList<String> ing = Arquivo.lerRecursos("arquivos/recursos/ingredientes.txt");
+		ArrayList<String> emb = Arquivo.lerRecursos("arquivos/recursos/tiposDeEmbalagem.txt");
+		ArrayList<String> pag = Arquivo.lerRecursos("arquivos/recursos/formasDePagamento.txt");
+		ArrayList<Item> items = Arquivo.lerDirItens("arquivos/itens");
+
+		Restaurante restaurante = new Restaurante();
+
+		restaurante.setIng(ing);
+		restaurante.setEmb(emb);
+		restaurante.setPag(pag);
+		restaurante.setItens(items);
+
+		ArrayList<Funcionario> func = Arquivo.lerDirFuncionarios(restaurante, "arquivos/funcionarios");
+		restaurante.setFunc(func);
+
+		ArrayList<Pedido> ped = Arquivo.lerDirPedidos(restaurante, "arquivos/pedidos");
+		restaurante.setRegPed(ped);		
 		
 		while (true) {
 			int input;
@@ -33,7 +63,7 @@ public class Main
 					Menu.menuRecursos(restaurante);
 					break;
 			}
-		}
+		}		
 	}
 
 	public static void limparTermial() {

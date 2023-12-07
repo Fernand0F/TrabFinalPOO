@@ -28,6 +28,15 @@ public class Restaurante {
         formasDePagameto = new ArrayList<String>();
     }
 
+    public Restaurante(ArrayList<Funcionario> funcionarios,  ArrayList<Item> cardapio, ArrayList<String> ingregientes, ArrayList<Pedido> registroDePedidos, ArrayList<String> tiposDeEmbalagem, ArrayList<String> formasDePagameto) {
+        this.funcionarios = new ArrayList<>(funcionarios);
+        this.cardapio = new ArrayList<>(cardapio);
+        this.ingregientes = new ArrayList<>(ingregientes);
+        this.registroDePedidos = new ArrayList<>(registroDePedidos);
+        this.tiposDeEmbalagem = new ArrayList<>(tiposDeEmbalagem);
+        this.formasDePagameto = new ArrayList<>(formasDePagameto);
+    }
+
     //Métodos GET
     public ArrayList<Funcionario> getFuncionarios() {
         return new ArrayList<Funcionario>(funcionarios);
@@ -54,6 +63,30 @@ public class Restaurante {
     }
  
     //Métodos SET
+    public void setItens(ArrayList<Item> x) {
+        this.cardapio = new ArrayList<>(x);
+    }
+
+    public void setIng(ArrayList<String> x) {
+        this.ingregientes = new ArrayList<>(x);
+    }
+
+    public void setPag(ArrayList<String> x) {
+        this.formasDePagameto = new ArrayList<>(x);
+    }
+
+    public void setEmb(ArrayList<String> x) {
+        this.tiposDeEmbalagem = new ArrayList<>(x);
+    }
+
+    public void setFunc(ArrayList<Funcionario> x) {
+        this.funcionarios = new ArrayList<>(x);
+    }
+
+    public void setRegPed(ArrayList<Pedido> x) {
+        this.registroDePedidos = new ArrayList<>(x);
+    }
+
     public void cadastrarFuncionario(Funcionario funcionario) {
         if (funcionario instanceof Cozinheiro) {
             funcionarios.add((Cozinheiro) funcionario);
@@ -189,6 +222,36 @@ public class Restaurante {
                     return new Sobremesa((Sobremesa) cardapio.get(i));
                 } else if (cardapio.get(i) instanceof Bebida) {
                     return new Bebida((Bebida) cardapio.get(i));
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public Item buscarItemPorNome(String nome) {
+        for (int i = 0; i < cardapio.size(); i++) {
+            if (nome.equals(cardapio.get(i).getNome())) {
+                if (cardapio.get(i) instanceof PratoPrincipal) {
+                    return new PratoPrincipal((PratoPrincipal) cardapio.get(i));
+                } else if (cardapio.get(i) instanceof Sobremesa) {
+                    return new Sobremesa((Sobremesa) cardapio.get(i));
+                } else if (cardapio.get(i) instanceof Bebida) {
+                    return new Bebida((Bebida) cardapio.get(i));
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public Funcionario buscarFuncionarioPorNome(String nome) {
+        for (int i = 0; i < funcionarios.size(); i++) {
+            if (nome.equals(funcionarios.get(i).getNome())) {
+                if (funcionarios.get(i) instanceof Cozinheiro) {
+                    return new Cozinheiro((Cozinheiro) funcionarios.get(i));
+                } else if (funcionarios.get(i) instanceof Garcom) {
+                    return new Garcom((Garcom) funcionarios.get(i));
                 }
             }
         }
