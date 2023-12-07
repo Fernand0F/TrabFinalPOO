@@ -15,35 +15,28 @@ public class Main
 		ArrayList<String> pag = new ArrayList<>();
 		ArrayList<Item> items = new ArrayList<>();
 
+		Restaurante restaurante = new Restaurante();
+
 		try {
 			ing = Arquivo.lerRecursos("arquivos/recursos/ingredientes.txt");
 			emb = Arquivo.lerRecursos("arquivos/recursos/tiposDeEmbalagem.txt");
 			pag = Arquivo.lerRecursos("arquivos/recursos/formasDePagamento.txt");
 			items = Arquivo.lerDirItens("arquivos/itens");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 
-		Restaurante restaurante = new Restaurante();
-
-		try {
 			restaurante.setIng(ing);
 			restaurante.setEmb(emb);
 			restaurante.setPag(pag);
 			restaurante.setItens(items);
+
+			ArrayList<Funcionario> func = Arquivo.lerDirFuncionarios(restaurante, "arquivos/funcionarios");
+			restaurante.setFunc(func);
+
+			ArrayList<Pedido> ped = Arquivo.lerDirPedidos(restaurante, "arquivos/pedidos");
+			restaurante.setRegPed(ped);		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		
-
-		ArrayList<Funcionario> func = Arquivo.lerDirFuncionarios(restaurante, "arquivos/funcionarios");
-		restaurante.setFunc(func);
-
-		ArrayList<Pedido> ped = Arquivo.lerDirPedidos(restaurante, "arquivos/pedidos");
-		restaurante.setRegPed(ped);		
-		
 		while (true) {
 			int input;
 			String[] itensMenu = new String[5]; //Itens do menu
