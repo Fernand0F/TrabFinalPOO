@@ -5,6 +5,8 @@ import ClassesItem.Bebida;
 import ClassesItem.Item;
 import ClassesItem.PratoPrincipal;
 import ClassesItem.Sobremesa;
+import ClassesPedido.PedidoItem;
+
 import java.util.ArrayList;
 
 public class Cozinheiro extends Funcionario {
@@ -44,13 +46,13 @@ public class Cozinheiro extends Funcionario {
         return 0.5;
     }
 
-    public double calcSalario(double valorPratoPrincipal, double valorSobremesa) {
+    public double calcSalario(double valorPratoPrincipal, double valorSobremesa, ArrayList<PedidoItem> ped) {
         double salario = 0.0;
-    
-        for (Item item : pratosCozinheiro) {
-            if (item instanceof PratoPrincipal) {
+
+        for (PedidoItem item : ped) {
+            if (item.getItem() instanceof PratoPrincipal) {
                 salario += valorPratoPrincipal;
-            } else if (item instanceof Sobremesa) {
+            } else if (item.getItem() instanceof Sobremesa) {
                 salario += valorSobremesa;
             }
         }

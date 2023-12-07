@@ -3,17 +3,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-import ClassesAuxiliares.Data;
-import ClassesAuxiliares.Hora;
-import ClassesFuncionario.Cozinheiro;
 import ClassesFuncionario.Funcionario;
-import ClassesFuncionario.Garcom;
-import ClassesItem.Bebida;
 import ClassesItem.Item;
-import ClassesItem.PratoPrincipal;
-import ClassesItem.Sobremesa;
 import ClassesPedido.Pedido;
-import ClassesPedido.PedidoItem;
 
 public class Main
 {
@@ -63,7 +55,25 @@ public class Main
 					Menu.menuRecursos(restaurante);
 					break;
 			}
-		}		
+		}	
+		
+		try {
+			Arquivo.cadastrarIgredientes(restaurante.getIngredientes());
+			Arquivo.cadastrarFormasDePagameto(restaurante.getFormasDePagamento());
+			Arquivo.cadastrarTiposDeEmbalagem(restaurante.getTiposDeEmbalagem());
+			for (int i = 0; i < restaurante.getFuncionarios().size(); i++) {
+				Arquivo.cadastrarFuncionario(restaurante.getFuncionarios().get(i));
+			}
+			for (int i = 0; i < restaurante.getCardapio().size(); i++) {
+				Arquivo.cadastrarItem(restaurante.getCardapio().get(i));
+			}
+			for (int i = 0; i < restaurante.getRegistroDePedidos().size(); i++) {
+				Arquivo.cadastrarRegistroDePedido(restaurante.getRegistroDePedidos().get(i), Integer.toString(i));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public static void limparTermial() {

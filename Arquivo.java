@@ -265,7 +265,7 @@ public class Arquivo {
     
     public static void cadastrarRegistroDePedido(Pedido pedido, String nomeArq) throws IOException {
         
-        FileWriter fw = new FileWriter("arquivos/pedidos/" + nomeArq);
+        FileWriter fw = new FileWriter("arquivos/pedidos/" + nomeArq + ".txt");
 
         BufferedWriter bw = new BufferedWriter(fw);
         

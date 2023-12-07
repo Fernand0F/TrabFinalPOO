@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import ClassesAuxiliares.Data;
+import ClassesAuxiliares.Hora;
 import ClassesFuncionario.Funcionario;
 import ClassesFuncionario.Cozinheiro;
 import ClassesFuncionario.Garcom;
@@ -10,6 +11,8 @@ import ClassesItem.Bebida;
 import ClassesItem.Item;
 import ClassesItem.PratoPrincipal;
 import ClassesItem.Sobremesa;
+import ClassesPedido.Pedido;
+import ClassesPedido.PedidoItem;
 
 public class Menu {
     public static int menu(String[] itens, String titulo) {
@@ -39,13 +42,150 @@ public class Menu {
         return input;   
     }
 
-    //A fazer
     public static void menuPedidos(Restaurante restaurante) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Não tem nada");
+        //numPedidos n pode ser aqui
+        int numPedidos = 0;
 
-        scanner.nextLine();
+        while (true) {
+            String[] itensMenuPedidos = new String[3];
+            itensMenuPedidos[0] = new String("Realizar Pedido");
+            itensMenuPedidos[1] = new String("Ver Pedidos Realizados");
+            itensMenuPedidos[2] = new String("Voltar");
+
+            int input01 = menu(itensMenuPedidos, "Pedidos");
+
+            if (input01 == 2) break; 
+
+            switch (input01) {
+                case 0:
+                    realizarPedido(restaurante);
+                    break;
+
+                case 1:
+                    System.out.println("\n===== Pedidos Realizados =====");
+                    for (int i = 0; i < restaurante.getRegistroDePedidos().size(); i++) {
+                        System.out.format("\nItens:");
+                        for (int j = 0; j < restaurante.getRegistroDePedidos().get(i).getConjuntoItens().size(); j++) {
+                            System.out.format("\n - Nome: %s", restaurante.getRegistroDePedidos().get(i).getConjuntoItens().get(j).getItem().getNome());
+                            System.out.format("\n - Quantidade: %d", restaurante.getRegistroDePedidos().get(i).getConjuntoItens().get(j).getQtd());
+                        }
+                        System.out.format("\nData: %02d/%02d/%d", restaurante.getRegistroDePedidos().get(i).getData().getDia(), restaurante.getRegistroDePedidos().get(i).getData().getMes(), restaurante.getRegistroDePedidos().get(i).getData().getAno());
+                        System.out.format("\nHora do registro: %02d:%02d:%02d", restaurante.getRegistroDePedidos().get(i).getHoraRegistro().getHoras(), restaurante.getRegistroDePedidos().get(i).getHoraRegistro().getMinutos(), restaurante.getRegistroDePedidos().get(i).getHoraRegistro().getSegundos());
+                        System.out.format("\nHora do pagamento: %02d:%02d:%02d", restaurante.getRegistroDePedidos().get(i).getHoraPagamento().getHoras(), restaurante.getRegistroDePedidos().get(i).getHoraPagamento().getMinutos(), restaurante.getRegistroDePedidos().get(i).getHoraPagamento().getSegundos());
+                        System.out.format("\nForma de pagamento: %s", restaurante.getRegistroDePedidos().get(i).getFormaDePagamento());
+                        System.out.format("\nValor total: %.2f R$", restaurante.getRegistroDePedidos().get(i).getValorTotal());
+                        System.out.format("\nCozinheiro: %s", restaurante.getRegistroDePedidos().get(i).getCozinheiro().getNome());
+                        System.out.format("\nGarçom: %s", restaurante.getRegistroDePedidos().get(i).getGarcom().getNome());
+                    }
+                    scanner.nextLine();
+                    break;
+            }
+        }
+    }
+
+    private static void realizarPedido(Restaurante restaurante) {
+        Scanner scanner = new Scanner(System.in);
+
+        ArrayList<PedidoItem> itensDoPedido = new ArrayList<PedidoItem>();
+        while (true) {
+            Main.limparTermial();
+            System.out.println("===== Cardápio =====");
+            restaurante.mostrarCardapio();
+            System.out.println("====================");
+            scanner.nextLine();
+            System.out.println("Digite o código do item a ser adicionado [-1 para continuar]: ");
+            String cod = scanner.nextLine();
+
+            if (cod.equals("-1")) break;
+
+            System.out.println("Quantidade: ");
+            int qtd = scanner.nextInt();
+
+            itensDoPedido.add(new PedidoItem(restaurante.buscarItemPorCodigo(cod), qtd));
+        }
+
+        System.out.println("Data do pedido:");
+        System.out.format(" - Dia: ");
+        int dia = scanner.nextInt();
+        System.out.format(" - Mes: ");
+        int mes = scanner.nextInt();
+        System.out.format(" - Ano: ");
+        int ano = scanner.nextInt();
+        
+        Data data = new Data(dia, mes, ano);
+
+        System.out.println("Hora do registro:");
+        System.out.format(" - Hora: ");
+        int h1 = scanner.nextInt();
+        System.out.format(" - Minutos: ");
+        int m1 = scanner.nextInt();
+        System.out.format(" - Segundos: ");
+        int s1 = scanner.nextInt();
+        
+        Hora horaRegistro = new Hora(h1, m1, s1);
+
+        System.out.println("Hora do pagamento:");
+        System.out.format(" - Hora: ");
+        int h2 = scanner.nextInt();
+        System.out.format(" - Minutos: ");
+        int m2 = scanner.nextInt();
+        System.out.format(" - Segundos: ");
+        int s2 = scanner.nextInt();
+        
+        Hora horaPagamento = new Hora(h2, m2, s2);
+
+        ArrayList<String> garcom = new ArrayList<>();
+        for(int i = 0; i < restaurante.getFuncionarios().size() ; i++){
+            if(restaurante.getFuncionarios().get(i) instanceof Garcom){
+                garcom.add(restaurante.getFuncionarios().get(i).getNome());
+            }
+        }
+
+        System.out.format("Informe o garçom responsável: ");
+
+        for (int i = 0; i < garcom.size(); i++) {
+            System.out.format("\n %d - %s", i, garcom.get(i));
+        }
+        System.out.println("\nOpção: ");
+
+        int indexGar = scanner.nextInt();
+        Funcionario gar = restaurante.buscarFuncionarioPorNome(garcom.get(indexGar));
+
+
+        ArrayList<String> cozinheiros = new ArrayList<String>();
+            for (int i = 0; i < restaurante.getFuncionarios().size(); i++) {
+                if (restaurante.getFuncionarios().get(i) instanceof Cozinheiro ){
+                    if (((Cozinheiro) restaurante.getFuncionarios().get(i)).verificarPrato(itensDoPedido.get(0).getItem().getCodigo())) {
+                        cozinheiros.add(restaurante.getFuncionarios().get(i).getNome());
+                    }
+                }
+            }
+
+        System.out.format("Informe o cozinheiro responsável: ");
+
+        for (int i = 0; i < cozinheiros.size(); i++) {
+            System.out.format("\n %d - %s", i, cozinheiros.get(i));
+        }
+        System.out.println("\nOpção: ");
+
+        int indexCoz = scanner.nextInt();
+        Funcionario coz = restaurante.buscarFuncionarioPorNome(cozinheiros.get(indexCoz));
+
+        System.out.println("Forma de pagamento");
+        for (int i = 0; i < restaurante.getFormasDePagamento().size(); i++) {
+            System.out.format("\n %d - %s ", i, restaurante.getFormasDePagamento().get(i));
+        }
+        System.out.println("\nOpção: ");
+        String formaPag = restaurante.getFormasDePagamento().get(scanner.nextInt());
+
+        
+        Pedido p = new Pedido(itensDoPedido, data, horaRegistro, horaPagamento, formaPag, (Cozinheiro) coz, (Garcom) gar);
+        restaurante.cadastrarPedido(p);
+
+        
+        System.out.println("Pedido realizado com sucesso!");
     }
 
     //A fazer

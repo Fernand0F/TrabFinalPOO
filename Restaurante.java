@@ -204,7 +204,7 @@ public class Restaurante {
 
                 System.out.format("\nPratos:");
                 for (int j = 0; j < itensCozinheiro.size(); j++) {
-                    System.out.format("\n - %s", itensCozinheiro.get(i).getNome());
+                    System.out.format("\n - %s", itensCozinheiro.get(j).getNome());
                 }
 
             }
