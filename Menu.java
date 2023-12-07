@@ -82,6 +82,8 @@ public class Menu {
     }
 
     private static void cadastrarItem(Restaurante restaurante) {
+        Scanner scanner = new Scanner(System.in);
+
         String[] itensMenuCadastroItem = new String[4]; //Itens do menu
         itensMenuCadastroItem[0] = new String("Cadastrar Prato Principal");
         itensMenuCadastroItem[1] = new String("Cadastrar Sobremesa");
@@ -107,6 +109,8 @@ public class Menu {
                     cadastrarBebida(restaurante);
                     break;
             }
+
+            scanner.nextLine();
         }
     }
 
@@ -274,12 +278,16 @@ public class Menu {
         }
     }
 
-    System.out.format("Tamanho da embalagem: ");
+    System.out.format("Tamanho da embalagem (ml): ");
     double tamanhoEmbalagem = scanner.nextDouble();
     scanner.nextLine();
 
-    System.out.format("Tipo de embalagem: ");
-    String tipoEmbalagem = scanner.nextLine();
+
+    for (int i = 0; i < restaurante.getTiposDeEmbalagem().size(); i++) {
+        System.out.format("\n %d - %s", i, restaurante.getTiposDeEmbalagem().get(i));
+    }
+    System.out.format("\nTipo de embalagem: ");
+    int tipoEmbalagem = scanner.nextInt();
 
     System.out.format("Preço unitário: ");
     double precoUnitario = scanner.nextDouble();
@@ -287,7 +295,7 @@ public class Menu {
     System.out.format("Preço de custo: ");
     double precoCusto = scanner.nextDouble();
 
-    Bebida bebida = new Bebida(nome, codigo, precoUnitario, precoCusto, tamanhoEmbalagem, tipoEmbalagem);
+    Bebida bebida = new Bebida(nome, codigo, precoUnitario, precoCusto, tamanhoEmbalagem, restaurante.getTiposDeEmbalagem().get(tipoEmbalagem));
     restaurante.cadastrarItem(bebida);
 
     System.out.println("Bebida cadastrada");
