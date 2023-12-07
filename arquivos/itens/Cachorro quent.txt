@@ -1,0 +1,9 @@
+PratoPrincipal
+Cachorro quent
+AA000
+10
+6
+Um delicioso cachorro quente
+15
+4
+Pao;Salsicha;

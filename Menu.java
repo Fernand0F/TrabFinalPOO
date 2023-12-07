@@ -281,9 +281,9 @@ public class Menu {
             System.out.format("Decrição do prato: ");
             String descricao = scanner.nextLine();
             System.out.format("Preço unitário: ");
-            double precoUnitario = scanner.nextDouble();
+            double precoUnitario = scanner.nextFloat();
             System.out.format("Preço de custo: ");
-            double precoCusto = scanner.nextDouble();
+            double precoCusto = scanner.nextFloat();
             System.out.format("Tempo de preparo: ");
             double tempoDePreparo = scanner.nextDouble();
             System.out.format("Valor pago ao cozinheiro: ");
