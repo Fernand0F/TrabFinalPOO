@@ -57,4 +57,16 @@ public class Cozinheiro extends Funcionario {
     
         return salario;
     }
+
+    // Verifica se o cozinheiro cozinha o prata dado com o código dado como parâmetro 
+    public boolean verificarPrato(String cod) {
+
+        for (int i = 0; i < pratosCozinheiro.size(); i++) {
+            if (cod.equals(pratosCozinheiro.get(i).getCodigo())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

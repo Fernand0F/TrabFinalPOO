@@ -179,5 +179,21 @@ public class Restaurante {
             System.out.format("\n\n");
         }
     }
+
+    public Item buscarItemPorCodigo(String cod) {
+        for (int i = 0; i < cardapio.size(); i++) {
+            if (cod.equals(cardapio.get(i).getCodigo())) {
+                if (cardapio.get(i) instanceof PratoPrincipal) {
+                    return new PratoPrincipal((PratoPrincipal) cardapio.get(i));
+                } else if (cardapio.get(i) instanceof Sobremesa) {
+                    return new Sobremesa((Sobremesa) cardapio.get(i));
+                } else if (cardapio.get(i) instanceof Bebida) {
+                    return new Bebida((Bebida) cardapio.get(i));
+                }
+            }
+        }
+
+        return null;
+    }
 }
  
